@@ -1,6 +1,6 @@
 # PrayerTimes
 
-Flexiable and configurable calculation for Muslim prayers times.
+Flexible and configurable calculation for Muslim prayers times.
 
 ## Installation
 
@@ -69,7 +69,7 @@ pt = PrayerTimes.new("Makkah", options)
 
 ## Help
 
-Youre help is appreciated, specially in adjusting the calculation methods and making them more accurate. 
+Your help is appreciated, specially in adjusting the calculation methods and making them more accurate. 
 Your contribution is welcome.
 
 ## Contributing
