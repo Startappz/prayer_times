@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require_relative '../../test_helper'
 
 # Those results are tested against numbers from the js code
