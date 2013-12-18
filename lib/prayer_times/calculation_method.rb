@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PrayerTimes
   # Calculation method instances and logic is encapsulated here
   class CalculationMethod

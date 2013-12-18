@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'date'
 require 'forwardable'
 require_relative "prayer_times/version"

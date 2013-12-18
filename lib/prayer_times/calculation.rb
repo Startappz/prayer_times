@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PrayerTimes
   # Calculation class used to do the times calculation in given settings
   class Calculation

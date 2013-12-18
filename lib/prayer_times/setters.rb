@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PrayerTimes
   # General setters 
   module Setters

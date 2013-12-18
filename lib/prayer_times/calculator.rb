@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PrayerTimes
   # This is main interface class
   class Calculator

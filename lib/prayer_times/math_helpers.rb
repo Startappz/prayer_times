@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PrayerTimes
   # Math helpers module
   module MathHelpers

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PrayerTimes
   # Helper class to initiate a list of calculation methods and add/update others
   class CalculationMethods

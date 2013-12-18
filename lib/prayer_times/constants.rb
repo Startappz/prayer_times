@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PrayerTimes
   # General constants. Don't try to change their values.
   # You have flexible general and instance configurations.  
