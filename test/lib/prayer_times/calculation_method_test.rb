@@ -3,11 +3,11 @@ require_relative '../../test_helper'
 
 describe PrayerTimes::CalculationMethod do
   
-  let(:name){"Medina"}
+  let(:method_name){"Medina"}
   let(:description){"Medina testing methods"}
   
   describe "Object" do
-    subject{PrayerTimes::CalculationMethod.new(name, description,{})}
+    subject{PrayerTimes::CalculationMethod.new(method_name, description,{})}
     it {subject.must_respond_to :description}
     it {subject.must_respond_to :description=}
     it {subject.must_respond_to :settings}
@@ -17,14 +17,14 @@ describe PrayerTimes::CalculationMethod do
   end
   
   describe "#initialize" do
-    context "when name and description are provided" do
-      subject{PrayerTimes::CalculationMethod.new(name, description)}
-      it {subject.name.must_equal(name)}
+    context "when method_name and description are provided" do
+      subject{PrayerTimes::CalculationMethod.new(method_name, description)}
+      it {subject.name.must_equal(method_name)}
       it {subject.description.must_equal(description)}
     end
     
     context "when settings are not provided" do
-      subject{PrayerTimes::CalculationMethod.new(name, description, {})}
+      subject{PrayerTimes::CalculationMethod.new(method_name, description, {})}
       it {subject.settings.must_equal(PrayerTimes::CalculationMethod.default_settings)}
     end
        
@@ -34,12 +34,12 @@ describe PrayerTimes::CalculationMethod do
          asr:        'Hanafi',
          isha:       18
       }}
-      subject{PrayerTimes::CalculationMethod.new(name, description,opts)}
+      subject{PrayerTimes::CalculationMethod.new(method_name, description,opts)}
       it {subject.settings.must_equal(PrayerTimes::CalculationMethod.default_settings.merge opts)}
     end   
     
     context "when offsets are not provided" do
-      subject{PrayerTimes::CalculationMethod.new(name, description, {}, {})}
+      subject{PrayerTimes::CalculationMethod.new(method_name, description, {}, {})}
       it {subject.offsets.must_equal(PrayerTimes::Constants.times_offsets)}
     end
        
@@ -49,7 +49,7 @@ describe PrayerTimes::CalculationMethod do
          asr:        -1,
          isha:       6
       }}
-      subject{PrayerTimes::CalculationMethod.new(name, description,{},opts)}
+      subject{PrayerTimes::CalculationMethod.new(method_name, description,{},opts)}
       it {subject.offsets.must_equal(PrayerTimes::Constants.times_offsets.merge opts)}
     end     
        
