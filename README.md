@@ -1,4 +1,5 @@
-PrayerTimes [![Build Status](https://travis-ci.org/Startappz/prayer_times.png?branch=master)](https://travis-ci.org/Startappz/prayer_times)
+PrayerTimes [![Build Status](https://travis-ci.org/Startappz/prayer_times.png?branch=master)](https://travis-ci.org/Startappz/prayer_times) [![Dependency Status](https://gemnasium.com/Startappz/prayer_times.png)](https://gemnasium.com/Startappz/prayer_times)
+
 ===
 
 Flexible and configurable calculation for Muslim prayers times.
