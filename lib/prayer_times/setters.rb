@@ -66,7 +66,8 @@ module PrayerTimes
     end 
     
     def const_class #:nodoc:
-      raise "Please override this method"
+      raise NotImplementedError,
+       "You must implement #const_class to define which class to get the default attributes from"
     end
   end
 end
