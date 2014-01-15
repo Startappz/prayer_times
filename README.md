@@ -23,9 +23,9 @@ Or install it yourself as:
 
 ```ruby
 require 'prayer_times'
-pt = PrayerTimes.new("Makkah")
-times = pt.get_times(Date.today(), [31,36], 3)
-puts times.inspect
+pt = PrayerTimes.new("Makkah") # there are several calculation methods, check adding more methods
+times = pt.get_times(Date.today, [31,36], 3)
+p times
 ```
 
 ### Global configuration
