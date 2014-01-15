@@ -5,6 +5,11 @@ module PrayerTimes
     extend Forwardable
     include MathHelpers
 
+    SunPosition = Struct.new(:declination, :equation)
+
+    MINUTE = 60
+    DEGREES_PER_HOUR = 15.0
+
     def_delegators :@calculator, :time_suffixes, :time_format, :invalid_time, :iterations_count, :times_offsets
 
     # Gets the prayers times
@@ -19,7 +24,7 @@ module PrayerTimes
       self.lng = coords[1]
       self.elv = coords.size > 2 ? coords[2] : 0
       self.time_zone = time_zone
-      self.jdate = julian_date(date) - lng / (15 * 24.0)
+      self.jdate = julian_date(date) - lng / (360.0)
       self.times = {
         imsak: 5, fajr: 5, sunrise: 6, dhuhr: 12, asr: 13,
         sunset: 18, maghrib: 18, isha: 18
@@ -55,9 +60,9 @@ module PrayerTimes
     def get_formatted_time(time)
       return invalid_time if time.nan?
       return time if time_format == 'Float'
-      time = fix_hour(time + 0.5 / 60)  # add 0.5 minutes to round
+      time = fix_hour(time + 0.5 / self.class::MINUTE)  # add 0.5 minutes to round
       hours = time.floor
-      minutes = ((time - hours) * 60).floor
+      minutes = ((time - hours) * self.class::MINUTE).floor
       suffix = time_format == '12h' ? time_suffixes[hours < 12 ? :am : :pm ] : ''
       formatted_time =  (time_format == "24h") ?  ("%02d:%02d" % [hours, minutes]) : "%d:%02d" % [((hours + 11) % 12)+1, minutes]
       formatted_time + suffix
@@ -65,15 +70,15 @@ module PrayerTimes
 
     # compute mid-day time
     def mid_day(time)
-      eqt = sun_position(jdate + time)[1]
+      eqt = sun_position(jdate + time).equation
       fix_hour(12 - eqt)
     end
 
     # compute the time at which sun reaches a specific angle below horizon
     def sun_angle_time(angle, time, direction = nil)
-      decl = sun_position(jdate + time)[0]
+      decl = sun_position(jdate + time).declination
       noon = mid_day(time)
-      t = 1/15.0 * darccos((-rsin(angle)- rsin(decl)* rsin(lat))/
+      t = 1.0 / self.class::DEGREES_PER_HOUR * darccos((-rsin(angle)- rsin(decl)* rsin(lat))/
           (rcos(decl) * rcos(lat)))
       return noon + (direction == 'ccw' ? -t : t)
     rescue
@@ -82,15 +87,15 @@ module PrayerTimes
 
     # compute asr time
     def asr_time(factor, time)
-      decl = sun_position(jdate + time)[0]
+      decl = sun_position(jdate + time).declination
       angle = -darccot(factor + rtan(lat - decl).abs)
       sun_angle_time(angle, time)
     end
 
     # compute declination angle of sun and equation of time
     # Ref: http://aa.usno.navy.mil/faq/docs/SunApprox.php
-    def sun_position(jd)
-      d = jd - 2451545.0
+    def sun_position(julian_date)
+      d = julian_date - 2451545.0
       g = fix_angle(357.529 + 0.98560028 * d)
       q = fix_angle(280.459 + 0.98564736 * d)
       l = fix_angle(q + 1.915* rsin(g) + 0.020* rsin(2*g))
@@ -98,11 +103,11 @@ module PrayerTimes
       #r = 1.00014 - 0.01671 * cos(g) - 0.00014 * cos(2*g)
       e = 23.439 - 0.00000036 * d
 
-      ra = darctan2(rcos(e)* rsin(l), rcos(l))/ 15.0
-      eqt = q / 15.0 - fix_hour(ra)
-      decl = darcsin(rsin(e)* rsin(l))
+      ra = darctan2(rcos(e)* rsin(l), rcos(l))/ self.class::DEGREES_PER_HOUR
+      equation = q / self.class::DEGREES_PER_HOUR - fix_hour(ra) # equation of time
+      declination = darcsin(rsin(e)* rsin(l)) # declination of the Sun
 
-      [decl, eqt]
+      SunPosition.new(declination,equation)
     end
 
 
@@ -137,19 +142,19 @@ module PrayerTimes
       end
 
       if minute?(method_settings[:imsak])
-        times[:imsak] = times[:fajr] - method_settings[:imsak].to_f / 60.0
+        times[:imsak] = times[:fajr] - method_settings[:imsak].to_f / self.class::MINUTE
       end
 
       # need to ask about 'min' settings
       if minute?(method_settings[:maghrib])
-        times[:maghrib] = times[:sunset] + method_settings[:maghrib].to_f / 60.0
+        times[:maghrib] = times[:sunset] + method_settings[:maghrib].to_f / self.class::MINUTE
       end
 
       if minute?(method_settings[:isha])
-        times[:isha] = times[:maghrib] + method_settings[:isha].to_f / 60.0
+        times[:isha] = times[:maghrib] + method_settings[:isha].to_f / self.class::MINUTE
       end
 
-      times[:dhuhr] += method_settings[:dhuhr].to_f / 60.0
+      times[:dhuhr] += method_settings[:dhuhr].to_f / self.class::MINUTE
 
       # add midnight time
       if method_settings[:midnight] == 'Jafari'
@@ -161,7 +166,7 @@ module PrayerTimes
 
     # adjust time zones
     def adjust_time_zones
-      tz_adjust = time_zone - lng / 15.0
+      tz_adjust = time_zone - lng / self.class::DEGREES_PER_HOUR
       times.keys.each{|k| times[k] += tz_adjust}
     end
 
@@ -178,7 +183,7 @@ module PrayerTimes
 
     # apply offsets to the times
     def tune_times
-      times.each{|k,_| times[k] += (method_offsets[k] + times_offsets[k]) / 60.0}
+      times.each{|k,_| times[k] += (method_offsets[k] + times_offsets[k]).to_f / self.class::MINUTE}
     end
 
     # convert times to given time format
@@ -214,9 +219,9 @@ module PrayerTimes
     # the night portion used for adjusting times in higher latitudes
     def night_portion(angle, night)
       hl_method = method_settings[:high_lats]
-      portion = 1/2.0  # midnight
-      portion = 1/60.0 * angle if hl_method == 'AngleBased'
-      portion = 1/7.0 if hl_method == 'OneSeventh'
+      portion = 1.0 / 2  # midnight
+      portion = 1.0 / self.class::MINUTE * angle if hl_method == 'AngleBased'
+      portion = 1.0 / 7 if hl_method == 'OneSeventh'
       portion * night
     end
 
