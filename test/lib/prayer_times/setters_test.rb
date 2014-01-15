@@ -2,7 +2,7 @@
 require_relative '../../test_helper'
 
 describe PrayerTimes::Setters do
-  
+
   subject{PrayerTimes::Calculator.new "MWL",{}}
   describe "#iteration_count=" do
     context "when number not number or out of range" do
@@ -33,7 +33,7 @@ describe PrayerTimes::Setters do
       it{result.must_equal time_format}
     end
   end
-  
+
   describe "#invalid_time=" do
     context "when nil" do
       let(:invalid_time){nil}
@@ -47,7 +47,7 @@ describe PrayerTimes::Setters do
       it{result.must_equal invalid_time}
     end
   end
-  
+
   describe "#time_suffixes=" do
     context "when wrong value" do
       let(:time_suffixes){{:amz => "صباحا", :pm => "مساءا"}}
@@ -61,7 +61,7 @@ describe PrayerTimes::Setters do
       it{result.must_equal PrayerTimes.time_suffixes.merge(time_suffixes)}
     end
   end
-  
+
   describe "#times_names=" do
     context "when wrong value" do
       let(:times_names){{:aser => "Aser", :koko => "Dano", :isha => "Ishaa"}}
@@ -75,7 +75,7 @@ describe PrayerTimes::Setters do
       it{result.must_equal PrayerTimes.times_names.merge(times_names)}
     end
   end
-  
+
   describe "#times_offsets=" do
     context "when wrong value" do
       let(:times_offsets){{:aser => 10, :dhuhr => "Dano", :isha => 3.6}}
@@ -89,7 +89,7 @@ describe PrayerTimes::Setters do
       it{result.must_equal PrayerTimes.times_offsets.merge(times_offsets)}
     end
   end
-  
+
   describe "#calculation_method=" do
     context "when wrong value" do
       let(:calculation_method){'K@mp'}

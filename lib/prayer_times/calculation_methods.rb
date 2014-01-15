@@ -4,7 +4,7 @@ module PrayerTimes
   class CalculationMethods
     extend Forwardable
     def_delegators :@hash, :[], :length, :each, :key?, :keys, :delete, :to_s
-    
+
     # default methods defined in this gem
     # Methods MWL, ISNA, Egypt, Makkah, Karachi, Tehran and Jafari are accurate
     # Other methods need validation. Your help is appreciated.
@@ -14,7 +14,7 @@ module PrayerTimes
           desc: 'Muslim World League',
           settings: {fajr: 18, isha: 17}
         },
-        'ISNA' => { 
+        'ISNA' => {
           desc: 'Islamic Society of North America (ISNA)',
           settings: {fajr: 15, isha: 15}
         },
@@ -23,8 +23,8 @@ module PrayerTimes
           settings: {fajr: 19.5, isha: 17.5}
         },
         'Makkah' => {
-            desc: 'Umm Al-Qura University, Makkah',
-            settings: {fajr: 18.5, isha: '90 min'}  # fajr was 19 degrees before 1430 hijri
+          desc: 'Umm Al-Qura University, Makkah',
+          settings: {fajr: 18.5, isha: '90 min'}  # fajr was 19 degrees before 1430 hijri
         },
         'Karachi' => {
           desc: 'University of Islamic Sciences, Karachi',
@@ -34,13 +34,13 @@ module PrayerTimes
           desc: 'Institute of Geophysics, University of Tehran',
           settings: {fajr: 17.7, maghrib: 4.5, isha: 14, midnight: 'Jafari'}  # isha is not explicitly specified in this method
         },
-       'Jafari' => {
+        'Jafari' => {
           desc: 'Shia Ithna-Ashari, Leva Institute, Qum',
           settings: {fajr: 16, maghrib: 4, isha: 14, midnight: 'Jafari'}
         },
-       'UOIF' =>{
+        'UOIF' =>{
           desc: "UNION DES ORGANISATIONS ISLAMIQUES DE FRANCE",
-          settings: {fajr: 19, maghrib: '0 min', isha: 17} 
+          settings: {fajr: 19, maghrib: '0 min', isha: 17}
         },
         'Algeria' =>{
           desc: "Algeria",
@@ -63,11 +63,11 @@ module PrayerTimes
         },
         'Jordan' =>{
           desc: "General Iftaa' Department, The Hashemite Kingdom of Jordan",
-          settings: {fajr: 18, maghrib: '0 min', isha: 18} 
+          settings: {fajr: 18, maghrib: '0 min', isha: 18}
         },
         'Kuwait' =>{
           desc: "Kuwait",
-          settings: {fajr: 18, maghrib: '0 min', isha: 17.5} 
+          settings: {fajr: 18, maghrib: '0 min', isha: 17.5}
         },
         'Libya' =>{
           desc: "Libya",
@@ -110,14 +110,14 @@ module PrayerTimes
         }
       }
     end
-    
+
     # Initializer
     # it populates a hash with predefined set of methods
     def initialize
       self.hash = {}
       populate
     end
-    
+
     # @param [String] name
     # @param [String] description
     # @param [Hash] settings
@@ -126,20 +126,20 @@ module PrayerTimes
     def add(name, description, settings={}, offsets={})
       hash[name] = CalculationMethod.new(name, description, settings, offsets)
     end
-   
+
     # Names of the available methods
     # @return [Array] list of names
     def names
       keys
     end
-    
+
     private
-    
+
     attr_accessor :hash
-    
+
     def populate
       self.class.default_methods.each {|k,v| add(k, v[:desc], v[:settings], v[:offsets])}
-    end 
-    
+    end
+
   end
 end

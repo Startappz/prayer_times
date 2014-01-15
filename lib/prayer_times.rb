@@ -15,8 +15,8 @@ module PrayerTimes #:nodoc:
     include Setters
 
     attr_reader :iterations_count, :times_names, :calculation_methods,
-     :calculation_method,:time_format, :time_suffixes,:times_offsets,
-     :invalid_time
+      :calculation_method,:time_format, :time_suffixes,:times_offsets,
+      :invalid_time
     # @see Calculator initializer
     def new(calc_method=@calucation_method,opts={})
       PrayerTimes::Calculator.new(calc_method, opts)
@@ -28,7 +28,7 @@ module PrayerTimes #:nodoc:
 
     def set_attributes
       attrs =  [:iterations_count, :times_names, :time_format,
-        :time_suffixes,:times_offsets, :invalid_time]
+                :time_suffixes,:times_offsets, :invalid_time]
       attrs.each {|attr| self.send "#{attr}=", nil}
 
       @calculation_methods = CalculationMethods.new

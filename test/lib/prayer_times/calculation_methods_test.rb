@@ -12,9 +12,9 @@ describe PrayerTimes::CalculationMethods do
     it {subject.must_respond_to :key?}
     it {subject.must_respond_to :delete}
   end
-  
 
-  
+
+
   describe  "#add" do
     before do
       @subject = PrayerTimes::CalculationMethods.new
@@ -32,7 +32,7 @@ describe PrayerTimes::CalculationMethods do
     it {@subject["Test"].offsets[:asr].must_equal -1}
     it {@subject["Test"].offsets[:isha].must_equal 3}
   end
-  
+
   describe "#names" do
     subject{PrayerTimes::CalculationMethods.new}
     it{subject.names.must_equal subject.keys}

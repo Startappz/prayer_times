@@ -1,19 +1,19 @@
 # encoding: UTF-8
 module PrayerTimes
-  # General setters 
+  # General setters
   module Setters
-   
+
     # Sets iterations c
     # @param [Integer] num
     #   0 < num < 6
     def iterations_count=(num)
       @iterations_count = if (Constants.accepted_iterations_count_range).include?(num)
         num
-       else
-         const_class.iterations_count
-       end
+      else
+        const_class.iterations_count
+      end
     end
-    
+
     # Sets time format
     # @param [String] format
     #   '24h':    24-hour format,
@@ -23,7 +23,7 @@ module PrayerTimes
     def time_format=(format)
       @time_format = if Constants.accepted_time_formats.include?(format)
         format
-      else 
+      else
         const_class.time_format
       end
     end
@@ -52,7 +52,7 @@ module PrayerTimes
     # @param [Hash] offsets
     def times_offsets=(offsets)
       s = offsets.reject{|k,v| !(const_class.times_offsets.key?(k) and v.is_a?(Numeric))} rescue {}
-      @times_offsets = const_class.times_offsets.merge(s) 
+      @times_offsets = const_class.times_offsets.merge(s)
     end
 
     # Sets calculation method and the corresponding settings
@@ -63,11 +63,11 @@ module PrayerTimes
       else
         PrayerTimes.calculation_method
       end
-    end 
-    
+    end
+
     def const_class #:nodoc:
       raise NotImplementedError,
-       "You must implement #const_class to define which class to get the default attributes from"
+        "You must implement #const_class to define which class to get the default attributes from"
     end
   end
 end

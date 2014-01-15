@@ -3,9 +3,9 @@ module PrayerTimes
   # This is main interface class
   class Calculator
     include Setters
-    
+
     attr_reader :calculation_method, :time_format, :times_names, :time_suffixes, :invalid_time, :iterations_count, :times_offsets
-    
+
     # Initializer
     # @param [String] calc_method the calculation method to use
     # @param [Hash] opts formatting options
@@ -32,7 +32,7 @@ module PrayerTimes
       self.iterations_count = opts[:iterations_count]
     end
 
-   
+
 
     # Gets the prayers times
     # @param [Date] date the date
@@ -42,14 +42,14 @@ module PrayerTimes
     # @return [Hash] times
     def get_times(date, coords, time_zone, dst = nil)
       Calculation.new(self,
-      date,
-      coords,
+                      date,
+                      coords,
       time_zone + (dst.nil? ? 0 : 1)).
-      compute
+        compute
     end
-    
+
     private
-    
+
     def const_class
       PrayerTimes
     end

@@ -15,7 +15,7 @@ describe PrayerTimes do
     it{subject.must_respond_to :times_offsets}
     it{subject.must_be_kind_of PrayerTimes::Setters}
   end
-  
+
   describe ".new" do
     subject{PrayerTimes.new}
     it{subject.must_be_kind_of PrayerTimes::Calculator}

@@ -4,7 +4,7 @@ module PrayerTimes
   class CalculationMethod
     attr_reader :name, :description, :settings, :offsets
     attr_writer :description
-    
+
     # Default settings
     def self.default_settings
       {
@@ -16,28 +16,28 @@ module PrayerTimes
         high_lats:  'NightMiddle'
       }
     end
-    
+
     # Initializer
     # @param [String] name
-    # @param [String] description  
-    # @param [Hash] settings 
+    # @param [String] description
+    # @param [Hash] settings
     # @option settings [String] :imsak
     # @option settings [String] :fajr
     # @option settings [String] :sunrise
     # @option settings [String] :dhuhr
     # @option settings [String] :asr Asr Juristic Methods:
-    #   'Standard':  Shafi`i, Maliki, Ja`fari and Hanbali, 
+    #   'Standard':  Shafi`i, Maliki, Ja`fari and Hanbali,
     #   'Hanafi':    Hanafi
     # @option settings [String] :sunset
     # @option settings [String] :maghrib
     # @option settings [String] :isha
     # @option settings [String] :midnight Midnight Mode:
-    #   'Standard':     Mid Sunset to Sunrise, 
-    #   'Jafari':       Mid Sunset to Fajr   
+    #   'Standard':     Mid Sunset to Sunrise,
+    #   'Jafari':       Mid Sunset to Fajr
     # @option settings [String] :high_lights Adjust Methods for Higher Latitudes:
-    #   'NightMiddle': middle of night, 
-    #   'AngleBased':  angle/60th of night, 
-    #   'OneSeventh':   1/7th of night, 
+    #   'NightMiddle': middle of night,
+    #   'AngleBased':  angle/60th of night,
+    #   'OneSeventh':   1/7th of night,
     #   'None'
     # @param [Hash] offsets
     # @option offsets [String] :imsak
@@ -55,32 +55,32 @@ module PrayerTimes
       self.settings = settings
       self.offsets = offsets
     end
-  
+
     # Sets times settings
     # @param [Hash] settings
-    # Check the initializer         
+    # Check the initializer
     def settings=(settings)
       s = settings.reject{|k,v| !(Constants.times_names.key?(k))} rescue {}
-      @settings = self.class.default_settings.merge(s) 
+      @settings = self.class.default_settings.merge(s)
     end
-    
+
     # Sets times offsets
     # @param [Hash] offsets
-    # Check the initializer         
+    # Check the initializer
     def offsets=(offsets)
       s = offsets.reject{|k,v| !(Constants.times_offsets.key?(k) and v.is_a?(Numeric))} rescue {}
-      @offsets = Constants.times_offsets.merge(s) 
+      @offsets = Constants.times_offsets.merge(s)
     end
-    
-      
+
+
     # @return readable representation of this object
     def to_s
       name
     end
-    
+
     private
-    
+
     attr_writer :name
-    
+
   end
 end
