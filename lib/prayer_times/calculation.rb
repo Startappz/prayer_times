@@ -21,7 +21,7 @@ module PrayerTimes
       self.time_zone = time_zone
       self.jdate = julian_date(date) - lng / (15 * 24.0)
       self.times = {
-        imsak: 5, fajr: 5, sunrise: 6, dhuhr: 12, asr: 13, 
+        imsak: 5, fajr: 5, sunrise: 6, dhuhr: 12, asr: 13,
         sunset: 18, maghrib: 18, isha: 18
       }
     end
@@ -133,7 +133,7 @@ module PrayerTimes
       adjust_time_zones
 
       if !method_settings[:high_lats].nil?
-        times = adjust_high_lats
+        adjust_high_lats
       end
 
       if minute?(method_settings[:imsak])
@@ -157,8 +157,6 @@ module PrayerTimes
       else
         times[:midnight] = times[:sunset] + time_diff(times[:sunset], times[:sunrise]) / 2
       end
-
-      times
     end
 
     # adjust time zones
@@ -201,7 +199,6 @@ module PrayerTimes
       times[:fajr]  = adjust_hl_time(times[:fajr], times[:sunrise], method_settings[:fajr].to_f, night_time, 'ccw')
       times[:isha]  = adjust_hl_time(times[:isha], times[:sunset], method_settings[:isha].to_f, night_time)
       times[:maghrib] = adjust_hl_time(times[:maghrib], times[:sunset], method_settings[:maghrib].to_f, night_time)
-      times
     end
 
     # adjust a time for higher latitudes
