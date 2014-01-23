@@ -28,7 +28,7 @@ module PrayerTimes
         },
         'Karachi' => {
           desc: 'University of Islamic Sciences, Karachi',
-          settings: {fajr: 18, isha: 18}
+          settings: {fajr: 18, asr: 'Hanafi', isha: 18}
         },
         'Tehran' => {
           desc: 'Institute of Geophysics, University of Tehran',

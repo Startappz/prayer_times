@@ -119,6 +119,23 @@ describe PrayerTimes::Calculation do
       end
     end
 
+    context 'when method is Karachi' do
+      context 'when date is 2013/12/17, location is Islamabad, timezone +5 and format is 12h' do
+        let(:pt){PrayerTimes.new "Karachi", time_format: '12h'}
+        subject{pt.get_times([2014,1,23], [33.73,73.06], 5)}
+        let(:expected){{
+                         'Imsak' =>  '5:33AM',
+                         'Fajr' => '5:43AM',
+                         'Sunrise' => '7:10AM',
+                         'Dhuhr' => '12:20PM',
+                         'Asr' => '3:52PM' ,
+                         'Sunset' => '5:30PM' ,
+                         'Maghrib' => '5:30PM' ,
+                         'Isha' => '6:56PM' ,
+        'Midnight' => '12:20AM' }}
+        it{subject.must_equal expected}
+      end
+    end
 
     context 'when method is Kula Malaysia' do
       context 'when date is 2013/12/17, location is Kula Lumpur, timezone +8 and format is 12h' do
