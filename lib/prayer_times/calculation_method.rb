@@ -69,6 +69,7 @@ module PrayerTimes
     # Check the initializer
     def offsets=(offsets)
       s = offsets.reject{|k,v| !(Constants.times_offsets.key?(k) and v.is_a?(Numeric))} rescue {}
+      s[:sunset] = s[:maghrib] if s[:maghrib]
       @offsets = Constants.times_offsets.merge(s)
     end
 
