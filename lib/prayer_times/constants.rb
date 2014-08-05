@@ -32,16 +32,16 @@ module PrayerTimes
     @time_format =    '24h'
 
     # Determines the accepted time format values
-    @accepted_time_formats = ['12h','24h','12hNS','Float']
+    @accepted_time_formats = %w(12h 24h 12hNS Float)
 
     # Times suffixes names to be displayed
-    @time_suffixes=  {:am => 'AM', :pm => 'PM'}
+    @time_suffixes = { am: 'AM', pm: 'PM' }
 
     # What to display when the time is invalid
-    @invalid_time=   '-----'
+    @invalid_time = '-----'
 
     # Time offsets
-    @times_offsets = @times_names.keys.inject({}){ |h,k| h.merge!(k => 0)}
+    @times_offsets = @times_names.keys.reduce({}) { |a, e| a.merge!(e => 0) }
 
     class << self
       attr_reader :iterations_count, :times_names,

@@ -44,8 +44,8 @@ module PrayerTimes
       Calculation.new(self,
                       date,
                       coords,
-      time_zone + (dst.nil? ? 0 : 1)).
-        compute
+                      time_zone + (dst.nil? ? 0 : 1))
+      .compute
     end
 
     private
