@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require_relative '../../test_helper'
+require 'helper'
 
 # Those results are tested against numbers from the js code
 # http://praytimes.org/code/v2/js/PrayTimes.js

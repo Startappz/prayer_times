@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require_relative '../../test_helper'
+require 'helper'
 
 describe PrayerTimes::Setters do
 
