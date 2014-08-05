@@ -19,7 +19,7 @@ describe PrayerTimes::Calculation do
                          'Maghrib' => '17:43' ,
                          'Isha' => '19:14' ,
         'Midnight' => '00:35' }}
-        it{subject.must_equal expected}
+        it{expect(subject).to eq(expected)}
       end
     end
 
@@ -40,7 +40,7 @@ describe PrayerTimes::Calculation do
                            'Maghrib' => '17:36' ,
                            'Isha' => '19:06' ,
           'Midnight' => '00:32' }}
-          it{subject.must_equal expected}
+          it{expect(subject).to eq(expected)}
         end
       end
 
@@ -58,7 +58,7 @@ describe PrayerTimes::Calculation do
                            'Maghrib' => '17:36' ,
                            'Isha' => '19:06' ,
           'Midnight' => '00:33' }}
-          it{subject.must_equal expected}
+          it{expect(subject).to eq(expected)}
         end
       end
 
@@ -78,7 +78,7 @@ describe PrayerTimes::Calculation do
                            'Maghrib' => '17:36' ,
                            'Ishaa' => '19:06' ,
           'Midnight' => '00:32' }}
-          it{subject.must_equal expected}
+          it{expect(subject).to eq(expected)}
         end
       end
 
@@ -96,7 +96,7 @@ describe PrayerTimes::Calculation do
                            'Maghrib' => '5:36 مساءا' ,
                            'Isha' => '7:06 مساءا' ,
           'Midnight' => '12:32 صباحا' }}
-          it{subject.must_equal expected}
+          it{expect(subject).to eq(expected)}
         end
       end
     end
@@ -115,7 +115,7 @@ describe PrayerTimes::Calculation do
                          'Maghrib' => '4:46PM' ,
                          'Isha' => '6:13PM' ,
         'Midnight' => '12:00AM' }}
-        it{subject.must_equal expected}
+        it{expect(subject).to eq(expected)}
       end
     end
 
@@ -133,7 +133,7 @@ describe PrayerTimes::Calculation do
                          'Maghrib' => '5:30PM' ,
                          'Isha' => '6:56PM' ,
         'Midnight' => '12:20AM' }}
-        it{subject.must_equal expected}
+        it{expect(subject).to eq(expected)}
       end
     end
 
@@ -151,7 +151,7 @@ describe PrayerTimes::Calculation do
                          'Maghrib' => '7:25PM' ,
                          'Isha' => '8:36PM' ,
         'Midnight' => '1:25AM' }}
-        it{subject.must_equal expected}
+        it{expect(subject).to eq(expected)}
       end
     end
 

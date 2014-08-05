@@ -45,7 +45,7 @@ There are [several methods](https://github.com/Startappz/prayer_times/wiki/Calcu
 ```ruby
 PrayerTimes.calculation_methods
 PrayerTimes.calculation_methods.names
-PrayerTimes.calculation_methods.add("Test", "Testing method", fajr: 16.5, asr: 'Hanafi', isha: '80 min') 
+PrayerTimes.calculation_methods.add("Test", "Testing method", fajr: 16.5, asr: 'Hanafi', isha: '80 min')
 new_method = PrayerTimes.calculation_methods["Test"]
 new_method.description = "new description"
 new_method.settings = {fajr: 19.5, isha: '33 min'}
@@ -70,7 +70,7 @@ pt = PrayerTimes.new("Makkah", options)
 
 ## Help
 
-Your help is appreciated, specially in adjusting the calculation methods and making them more accurate. 
+Your help is appreciated, specially in adjusting the calculation methods and making them more accurate.
 Your contribution is welcome.
 
 ## Contributing

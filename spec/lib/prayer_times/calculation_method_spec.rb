@@ -8,24 +8,24 @@ describe PrayerTimes::CalculationMethod do
 
   describe "Object" do
     subject{PrayerTimes::CalculationMethod.new(method_name, description,{})}
-    it {subject.must_respond_to :description}
-    it {subject.must_respond_to :description=}
-    it {subject.must_respond_to :settings}
-    it {subject.must_respond_to :settings=}
-    it {subject.must_respond_to :offsets}
-    it {subject.must_respond_to :offsets=}
-  end
+    it {expect(subject).to respond_to(:description)}
+    it {expect(subject).to respond_to(:description=)}
+    it {expect(subject).to respond_to(:settings)}
+    it {expect(subject).to respond_to(:settings=)}
+    it {expect(subject).to respond_to(:offsets)}
+    it {expect(subject).to respond_to(:offsets=)}
+   end
 
   describe "#initialize" do
     context "when method_name and description are provided" do
       subject{PrayerTimes::CalculationMethod.new(method_name, description)}
-      it {subject.name.must_equal(method_name)}
-      it {subject.description.must_equal(description)}
+      it {expect(subject.name).to eq(method_name)}
+      it {expect(subject.description).to eq(description)}
     end
 
     context "when settings are not provided" do
       subject{PrayerTimes::CalculationMethod.new(method_name, description, {})}
-      it {subject.settings.must_equal(PrayerTimes::CalculationMethod.default_settings)}
+      it {expect(subject.settings).to eq(PrayerTimes::CalculationMethod.default_settings)}
     end
 
     context "when settings are provided" do
@@ -35,12 +35,12 @@ describe PrayerTimes::CalculationMethod do
                    isha:       18
       }}
       subject{PrayerTimes::CalculationMethod.new(method_name, description,opts)}
-      it {subject.settings.must_equal(PrayerTimes::CalculationMethod.default_settings.merge opts)}
+      it {expect(subject.settings).to eq(PrayerTimes::CalculationMethod.default_settings.merge opts)}
     end
 
     context "when offsets are not provided" do
       subject{PrayerTimes::CalculationMethod.new(method_name, description, {}, {})}
-      it {subject.offsets.must_equal(PrayerTimes::Constants.times_offsets)}
+      it {expect(subject.offsets).to eq(PrayerTimes::Constants.times_offsets)}
     end
 
     context "when offsets are provided" do
@@ -50,7 +50,7 @@ describe PrayerTimes::CalculationMethod do
                    isha:       6
       }}
       subject{PrayerTimes::CalculationMethod.new(method_name, description,{},opts)}
-      it {subject.offsets.must_equal(PrayerTimes::Constants.times_offsets.merge opts)}
+      it {expect(subject.offsets).to eq(PrayerTimes::Constants.times_offsets.merge opts)}
     end
 
   end
