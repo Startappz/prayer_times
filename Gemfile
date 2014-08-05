@@ -2,13 +2,13 @@ source 'https://rubygems.org'
 
 gem 'jruby-openssl', :platforms => :jruby
 gem 'rake'
-gem 'yard'
 
 group :development do
   gem 'pry'
   gem 'pry-remote'
   gem 'pry-nav'
   platforms :ruby_19, :ruby_20, :ruby_21 do
+    gem 'yard'
     gem 'redcarpet'
   end
 end
